@@ -1,0 +1,32 @@
+@model MenuViewModel
+@{ ViewData["Title"] = "Laura Coffee"; }
+
+<section class="hero">
+    <p class="eyebrow">WELCOME TO</p><h1>LAURA COFFEE</h1>
+    <p>Đồ uống ngon — Bánh ngọt — Những phút giây thư giãn</p>
+    <a class="button light" href="#menu">Xem thực đơn</a>
+</section>
+@if (TempData["Message"] is string message) { <div class="toast">@message <a asp-controller="Cart" asp-action="Index">Xem giỏ hàng</a></div> }
+<section class="menu-wrap" id="menu">
+    <h2>Thực đơn của Laura</h2><p class="sub">Chọn món yêu thích và đặt hàng chỉ trong vài bước.</p>
+    @foreach (var category in Model.Categories)
+    {
+        <section class="menu-category" id="cat-@category.CategoryId">
+            <h3><span>@category.Icon</span> @category.Name</h3>
+            @if (category.Name == "Bánh kem nguyên chiếc") { <p class="notice">Đường kính 16 cm · Đặt trước tối thiểu 24 giờ · Miễn phí viết lời chúc ngắn.</p> }
+            <div class="product-grid">
+            @foreach (var product in category.Products.OrderBy(p => p.Name))
+            {
+                <article class="product-card">
+                    <div><h4>@product.Name</h4>@if (!string.IsNullOrWhiteSpace(product.Description)) { <p>@product.Description</p> }</div>
+                    <div class="card-bottom"><strong>@product.Price.ToString("N0")đ</strong>@if (!string.IsNullOrWhiteSpace(product.Unit)) { <small>/@product.Unit</small> }
+                        <form asp-controller="Cart" asp-action="Add" method="post"><input type="hidden" name="productId" value="@product.ProductId" />
+                            <details><summary>Tùy chọn thêm</summary>@foreach (var addOn in Model.AddOns) { <label><input type="checkbox" name="addOnIds" value="@addOn.AddOnId" /> @addOn.Name (+@addOn.Price.ToString("N0")đ)</label> }</details>
+                            <button type="submit">Thêm</button></form>
+                    </div>
+                </article>
+            }
+            </div>
+        </section>
+    }
+</section>

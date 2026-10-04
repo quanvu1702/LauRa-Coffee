@@ -1,0 +1,3 @@
+@model Order
+@{ ViewData["Title"] = "Đặt hàng thành công"; }
+<section class="narrow success"><div class="success-mark">✓</div><h1>Cảm ơn bạn!</h1><p>Đơn <strong>#@Model.OrderId</strong> đã được gửi. Laura Coffee sẽ gọi cho @Model.Phone để xác nhận.</p><p><strong>Tổng đơn: @Model.TotalAmount.ToString("N0")đ</strong></p><a class="button" asp-controller="Home" asp-action="Index">Về trang chủ</a></section>

@@ -1,0 +1,4 @@
+@model CheckoutViewModel
+@{ ViewData["Title"] = "Thông tin đặt hàng"; }
+<section class="narrow checkout"><h1>Thông tin đặt hàng</h1><p>Laura Coffee sẽ liên hệ xác nhận đơn của bạn.</p>
+<form method="post"><div asp-validation-summary="ModelOnly" class="validation"></div><label asp-for="CustomerName"></label><input asp-for="CustomerName" /><span asp-validation-for="CustomerName"></span><label asp-for="Phone"></label><input asp-for="Phone" /><span asp-validation-for="Phone"></span><label asp-for="Note"></label><textarea asp-for="Note" placeholder="Ví dụ: ít đá, giao lúc 9 giờ..."></textarea><button class="button" type="submit">Gửi đơn hàng</button></form></section>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Laura Coffee</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" asp-controller="Home" asp-action="Index">LAURA <span>COFFEE</span></a>
+        <nav><a asp-controller="Home" asp-action="Index" asp-fragment="menu">Thực đơn</a><a asp-controller="Cart" asp-action="Index">Giỏ hàng</a><a asp-controller="Admin" asp-action="Orders">Quản lý</a></nav>
+    </header>
+    <main>@RenderBody()</main>
+    <footer>© @DateTime.Now.Year Laura Coffee · Đồ uống ngon — Bánh ngọt — Những phút giây thư giãn</footer>
+</body>
+</html>

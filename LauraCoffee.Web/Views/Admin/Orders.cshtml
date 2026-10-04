@@ -1,0 +1,6 @@
+@model IEnumerable<Order>
+@{ ViewData["Title"] = "Quản lý đơn hàng"; }
+<section class="admin"><h1>Đơn hàng</h1><p class="notice">Trang mẫu nội bộ — cần thêm đăng nhập quản trị trước khi đưa lên Internet.</p>
+@if (!Model.Any()) { <p>Chưa có đơn hàng nào.</p> }
+@foreach (var order in Model) { <article class="order-card"><div><h3>#@order.OrderId · @order.CustomerName</h3><p>@order.Phone · @order.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</p><p>@string.Join(", ", order.Items.Select(x => $"{x.ProductName} × {x.Quantity}"))</p><strong>@order.TotalAmount.ToString("N0")đ</strong></div><form asp-action="UpdateStatus" method="post"><input type="hidden" name="id" value="@order.OrderId" /><select name="status">@foreach (var status in Enum.GetValues<OrderStatus>()) { <option value="@status" selected="@(status == order.Status ? "selected" : null)">@status</option> }</select><button type="submit">Lưu trạng thái</button></form></article> }
+</section>

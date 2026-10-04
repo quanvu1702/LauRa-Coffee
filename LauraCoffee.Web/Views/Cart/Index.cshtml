@@ -1,0 +1,15 @@
+@model List<CartItem>
+@{ ViewData["Title"] = "Giỏ hàng"; var total = Model.Sum(x => x.LineTotal); }
+<section class="narrow page-title"><h1>Giỏ hàng</h1><p>Kiểm tra món trước khi gửi đơn cho Laura Coffee.</p></section>
+<section class="narrow cart-box">
+@if (!Model.Any()) { <p>Giỏ hàng của bạn đang trống.</p><a class="button" asp-controller="Home" asp-action="Index" asp-fragment="menu">Chọn món ngay</a> }
+else {
+    @foreach (var item in Model) {
+        <div class="cart-row"><div><h3>@item.ProductName</h3><span>@item.UnitPrice.ToString("N0")đ / món @if (!string.IsNullOrWhiteSpace(item.AddOnNames)) { <br />@item.AddOnNames <text>(+@item.AddOnPrice.ToString("N0")đ)</text> }</span></div>
+        <form asp-action="Update" method="post"><input type="hidden" name="productId" value="@item.ProductId" /><input class="qty" type="number" min="0" name="quantity" value="@item.Quantity" /><button type="submit">Cập nhật</button></form>
+        <strong>@item.LineTotal.ToString("N0")đ</strong></div>
+    }
+    <div class="total">Tổng cộng <strong>@total.ToString("N0")đ</strong></div>
+    <a class="button" asp-action="Checkout">Tiếp tục đặt hàng</a>
+}
+</section>
